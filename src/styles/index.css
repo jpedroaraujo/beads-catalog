@@ -1,0 +1,100 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #f8f7f2;
+  --color-ink: #30372f;
+  --color-muted: #686b60;
+  --color-sage: #536650;
+  --color-soft: #eaf0e4;
+  --color-line: #e3e3d8;
+  --color-terracotta: #a15e45;
+  --color-lilac: #eae3f2;
+  --font-sans: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  --font-display: 'Trebuchet MS', 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-terracotta);
+    outline-offset: 4px;
+  }
+  ::selection {
+    background: #dce5d3;
+    color: var(--color-ink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .eyebrow {
+    @apply text-[10px] font-bold tracking-[0.16em] text-sage;
+  }
+  .nav-link {
+    @apply rounded-sm text-muted transition-colors hover:text-sage;
+  }
+  .button-primary {
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2.5 rounded-lg border border-sage bg-sage px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#42543f] disabled:cursor-not-allowed disabled:border-[#c5ccbd] disabled:bg-[#e1e6db] disabled:text-[#57634f];
+  }
+  .button-secondary {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-sage px-5 py-2 text-sm font-semibold text-sage hover:bg-soft;
+  }
+  .category-button {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-line bg-paper px-5 py-2 text-xs font-medium text-muted transition-colors hover:border-sage hover:text-sage aria-pressed:border-sage aria-pressed:bg-sage aria-pressed:text-white;
+  }
+  .product-card {
+    transition: box-shadow 150ms ease;
+  }
+  .product-card:hover {
+    box-shadow: 0 5px 20px #30372f0b;
+  }
+  .product-card:focus-within {
+    outline: 3px solid var(--color-terracotta);
+    outline-offset: 4px;
+  }
+  .product-card button:focus-visible {
+    outline: none;
+  }
+  .skip-link {
+    @apply fixed top-3 left-3 z-50 -translate-y-24 rounded-lg bg-sage px-5 py-3 text-sm text-white focus:translate-y-0;
+  }
+  .product-dialog {
+    margin: auto;
+    width: min(900px, calc(100% - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: 1px solid var(--color-line);
+    border-radius: 1rem;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    overflow-y: auto;
+  }
+  .product-dialog::backdrop {
+    background: #252d24a6;
+  }
+}
