@@ -5,7 +5,13 @@ import {
 } from '../src/lib/admin-catalog';
 import { isRecord } from '../src/lib/catalog';
 import { readCatalog } from './catalog';
-import { json, methodNotAllowed, problem } from './http';
+import {
+  allowsMutation,
+  contentType,
+  json,
+  methodNotAllowed,
+  problem,
+} from './http';
 
 type Table = 'categories' | 'products';
 
@@ -151,17 +157,10 @@ export async function handleAdmin(
       : ['PUT', 'DELETE'];
   if (!allowed.includes(method)) return methodNotAllowed(allowed.join(', '));
 
-  const origin = request.headers.get('Origin');
-  if (
-    (origin && origin !== url.origin) ||
-    request.headers.get('Sec-Fetch-Site') === 'cross-site'
-  ) {
+  if (!allowsMutation(request, url)) {
     return problem('Origem não permitida.', 403);
   }
-  if (
-    request.headers.get('Content-Type')?.split(';')[0]?.trim().toLowerCase() !==
-    'application/json'
-  ) {
+  if (contentType(request) !== 'application/json') {
     return problem('Envie os dados no formato JSON.', 415);
   }
   let body: unknown;

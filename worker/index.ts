@@ -2,10 +2,12 @@ import { hasAccess } from './access';
 import type { AccessConfig } from './access';
 import { handleAdmin } from './admin';
 import { readCatalog } from './catalog';
+import { handleGallery } from './gallery';
+import { cleanImages, serveImage } from './image-storage';
+import type { ImageStorage } from './image-storage';
 import { json, methodNotAllowed, problem } from './http';
 
-export interface Env extends AccessConfig {
-  readonly DB: D1Database;
+export interface Env extends AccessConfig, ImageStorage {
   readonly ASSETS: Fetcher;
 }
 
@@ -25,7 +27,21 @@ export async function handleRequest(
       if (!(await authorize(request, env))) {
         return problem('Acesso administrativo necessário.', 403);
       }
-      if (adminApi) return await handleAdmin(request, url, env.DB);
+      if (adminApi) {
+        const photo = /^\/api\/admin\/images\/([^/]+)$/.exec(pathname)?.[1];
+        if (photo) return await serveImage(request, env, photo, true);
+        const gallery = await handleGallery(request, url, env);
+        if (gallery) return gallery;
+        const response = await handleAdmin(request, url, env.DB);
+        if (
+          response.ok &&
+          request.method === 'DELETE' &&
+          pathname.startsWith('/api/admin/products/')
+        ) {
+          await cleanImages(env);
+        }
+        return response;
+      }
       if (request.method !== 'GET' && request.method !== 'HEAD')
         return methodNotAllowed('GET, HEAD');
       const asset = await env.ASSETS.fetch(
@@ -39,6 +55,8 @@ export async function handleRequest(
       if (request.method !== 'GET') return methodNotAllowed('GET');
       return json(await readCatalog(env.DB, false));
     }
+    const photo = /^\/api\/catalog\/images\/([^/]+)$/.exec(pathname)?.[1];
+    if (photo) return await serveImage(request, env, photo, false);
     if (pathname === '/api' || pathname.startsWith('/api/')) {
       return problem('Recurso não encontrado.', 404);
     }
@@ -50,6 +68,13 @@ export async function handleRequest(
 }
 
 export default {
+  scheduled(
+    _controller: ScheduledController,
+    env: Env,
+    context: ExecutionContext,
+  ): void {
+    context.waitUntil(cleanImages(env));
+  },
   fetch(request: Request, env: Env): Promise<Response> {
     return handleRequest(request, env);
   },

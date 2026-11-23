@@ -11,7 +11,12 @@ const adminCategories = categories.map((category) => ({
   ...category,
   revision: 1,
 }));
-const unavailable = { ...products[5], revision: 1, visible: true };
+const unavailable = {
+  ...products[5],
+  images: products[5].images.map((image, position) => ({ ...image, position })),
+  revision: 1,
+  visible: true,
+};
 
 describe('painel administrativo', () => {
   it('oculta uma peça sem alterar a disponibilidade e atualiza a lista', async () => {

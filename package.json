@@ -20,7 +20,8 @@
     "check": "npm run typecheck && npm run lint && npm test && npm run format:check && npm run build",
     "build:v2": "npm run typecheck && vite build --mode v2 --outDir dist-v2",
     "dev:v2": "npm run build:v2 && wrangler dev --config wrangler.local.jsonc --local --ip 127.0.0.1",
-    "db:v2:setup": "wrangler d1 migrations apply DB --config wrangler.local.jsonc --local && wrangler d1 execute DB --config wrangler.local.jsonc --local --file=worker/d1/seed.local.sql"
+    "db:v2:setup": "npm run db:v2:migrate && wrangler d1 execute DB --config wrangler.local.jsonc --local --file=worker/d1/seed.local.sql",
+    "db:v2:migrate": "wrangler d1 migrations apply DB --config wrangler.local.jsonc --local"
   },
   "dependencies": {
     "jose": "^6.2.18",

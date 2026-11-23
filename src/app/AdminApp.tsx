@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { CategoryEditor } from '../components/admin/CategoryEditor';
+import { GalleryEditor } from '../components/admin/GalleryEditor';
 import { ProductEditor } from '../components/admin/ProductEditor';
 import { parseAdminCatalog } from '../lib/admin-catalog';
 import { isRecord } from '../lib/catalog';
@@ -13,6 +14,9 @@ import type {
 type Editor =
   | { readonly type: 'products'; readonly item: AdminProduct | null }
   | { readonly type: 'categories'; readonly item: AdminCategory | null };
+
+type Selection =
+  Editor | { readonly type: 'gallery'; readonly productId: string };
 
 type Mutation = 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -52,7 +56,7 @@ function errorMessage(error: unknown): string {
 
 export function AdminApp() {
   const [catalog, setCatalog] = useState<AdminCatalog | null>(null);
-  const [editor, setEditor] = useState<Editor | null>(null);
+  const [editor, setEditor] = useState<Selection | null>(null);
   const [refresh, setRefresh] = useState(0);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -61,6 +65,10 @@ export function AdminApp() {
   const [confirmation, setConfirmation] = useState('');
   const editorRef = useRef<HTMLDivElement>(null);
   const actionsDisabled = loading || busy || readError !== null;
+  const galleryProduct =
+    editor?.type === 'gallery'
+      ? catalog?.products.find(({ id }) => id === editor.productId)
+      : undefined;
 
   useEffect(() => {
     const abort = new AbortController();
@@ -90,16 +98,34 @@ export function AdminApp() {
     setRefresh((previous) => previous + 1);
   }
 
-  function select(next: Editor | null) {
+  function select(next: Selection | null) {
     setEditor(next);
     setWriteError(null);
     setConfirmation('');
   }
 
-  async function save(
+  function save(
     path: string,
     method: Mutation,
     data: object,
+    message: string,
+    closeEditor = false,
+  ) {
+    return persist(
+      path,
+      {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      },
+      message,
+      closeEditor,
+    );
+  }
+
+  async function persist(
+    path: string,
+    request: RequestInit,
     message: string,
     closeEditor = false,
   ) {
@@ -107,11 +133,7 @@ export function AdminApp() {
     setWriteError(null);
     setConfirmation('');
     try {
-      const result = await sendAdminRequest(path, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+      const result = await sendAdminRequest(path, request);
       if (!isRecord(result) || typeof result.id !== 'string') {
         throw new Error(
           'Não foi possível confirmar a alteração. Atualize a lista antes de tentar novamente.',
@@ -196,7 +218,7 @@ export function AdminApp() {
                   onCancel={() => select(null)}
                   onSave={(inputs) => void saveEditor(inputs, editor)}
                 />
-              ) : (
+              ) : editor.type === 'categories' ? (
                 <CategoryEditor
                   key={editor.item?.id ?? 'new-category'}
                   category={editor.item}
@@ -204,6 +226,31 @@ export function AdminApp() {
                   onCancel={() => select(null)}
                   onSave={(inputs) => void saveEditor(inputs, editor)}
                 />
+              ) : galleryProduct ? (
+                <GalleryEditor
+                  key={galleryProduct.id}
+                  product={galleryProduct}
+                  busy={actionsDisabled}
+                  onClose={() => select(null)}
+                  onChange={(suffix, request, message) =>
+                    void persist(
+                      `products/${encodeURIComponent(galleryProduct.id)}/images${suffix}`,
+                      request,
+                      message,
+                    )
+                  }
+                />
+              ) : (
+                <>
+                  <p>O produto foi removido.</p>
+                  <button
+                    type="button"
+                    className="button-secondary"
+                    onClick={() => select(null)}
+                  >
+                    Fechar galeria
+                  </button>
+                </>
               )}
             </div>
           )}
@@ -270,6 +317,17 @@ export function AdminApp() {
                       onClick={() => select({ type: 'products', item })}
                     >
                       Editar
+                    </button>
+                    <button
+                      type="button"
+                      className="button-secondary"
+                      disabled={actionsDisabled || !!editor}
+                      aria-label={`Fotos de ${item.name}`}
+                      onClick={() =>
+                        select({ type: 'gallery', productId: item.id })
+                      }
+                    >
+                      Fotos
                     </button>
                     <button
                       type="button"

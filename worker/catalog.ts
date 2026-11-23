@@ -12,12 +12,16 @@ function categoriesQuery(admin: boolean): string {
 }
 
 function productsQuery(admin: boolean): string {
+  const imageSource = admin
+    ? "CASE WHEN object_key IS NULL THEN src ELSE '/api/admin/images/' || object_key END"
+    : 'src';
+  const imagePosition = admin ? ", 'position', position" : '';
   return `
   SELECT json_patch(json_object(
     'id', p.id, 'slug', p.slug, 'name', p.name, 'description', p.description,
     'categoryId', p.category_id,
     'images', json((
-      SELECT json_group_array(json_object('src', src, 'alt', alt) ORDER BY position)
+      SELECT json_group_array(json_object('src', ${imageSource}, 'alt', alt${imagePosition}) ORDER BY sort_order, position)
       FROM product_images WHERE product_id = p.id
     )),
     'pricing', json_patch(

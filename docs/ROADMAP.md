@@ -24,7 +24,7 @@ Antes da liberação comercial: aprovar a identidade visual, substituir exemplos
 
 ## V2 — Painel administrativo e persistência
 
-**Status** — Fundação, leitura pública e painel administrativo implementados localmente. Configuração e teste dos dois logins reais no Access, R2 e publicação pendentes.
+**Status** — Fundação, leitura pública, painel e gerenciamento de fotos no R2 implementados localmente. Homologação, teste dos dois logins reais no Access e publicação pendentes.
 
 - Acesso administrativo para duas contas individuais, com as mesmas permissões e sem cadastro público.
 - CRUD de produtos e categorias, upload de imagens.

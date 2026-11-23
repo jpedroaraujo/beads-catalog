@@ -1,12 +1,13 @@
 import type {
   AdminCatalog,
   AdminCategory,
+  AdminImage,
   AdminProduct,
   CategoryInput,
   ProductInput,
 } from '../types/admin-catalog';
 import type { Category } from '../types/category';
-import type { Product } from '../types/product';
+import type { Product, ProductImage } from '../types/product';
 import {
   isNonemptyText,
   isProductDimensions,
@@ -25,6 +26,14 @@ function hasRevision<T extends Category | Product>(
   return 'revision' in entry && isRevision(entry.revision);
 }
 
+export function isImagePosition(value: unknown): value is number {
+  return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
+}
+
+function isAdminImage(image: ProductImage): image is AdminImage {
+  return 'position' in image && isImagePosition(image.position);
+}
+
 export function parseAdminCatalog(value: unknown): AdminCatalog {
   const { categories, products } = parseCatalog(value);
   if (
@@ -33,7 +42,8 @@ export function parseAdminCatalog(value: unknown): AdminCatalog {
       (entry): entry is AdminProduct =>
         hasRevision(entry) &&
         'visible' in entry &&
-        typeof entry.visible === 'boolean',
+        typeof entry.visible === 'boolean' &&
+        entry.images.every(isAdminImage),
     )
   )
     throw new Error('Resposta inválida da administração.');

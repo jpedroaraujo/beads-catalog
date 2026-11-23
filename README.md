@@ -98,11 +98,13 @@ npm run db:v2:setup
 npm run dev:v2
 ```
 
-Abra `http://127.0.0.1:8787`. A vitrine lê categorias e peças visíveis de `GET /api/catalog`. A migração e os exemplos ficam em `worker/d1`. Rodar o setup novamente preserva os cadastros existentes. O Wrangler usa apenas o banco local, e `npm run dev:v2` gera o build separado em `dist-v2` antes de servir a SPA. Rode esse comando novamente após alterar a interface.
+Abra `http://127.0.0.1:8787`. A vitrine lê categorias e peças visíveis de `GET /api/catalog`. As migrações e os exemplos ficam em `worker/d1`. Use `npm run db:v2:setup` para montar uma prévia com exemplos. Para atualizar um banco existente sem repor exemplos removidos, use `npm run db:v2:migrate`. O Wrangler usa apenas o banco local, e `npm run dev:v2` gera o build separado em `dist-v2` antes de servir a SPA. Rode esse comando novamente após alterar a interface.
 
-O painel local fica em `http://127.0.0.1:8787/admin`. Use esse endereço para testar produtos, categorias, visibilidade e disponibilidade com o D1 local. O Worker de desenvolvimento aceita acesso administrativo apenas nessa prévia em loopback, sem login real. `npm run dev` e `npm run build` continuam servindo o fluxo estático da V1.
+O painel local fica em `http://127.0.0.1:8787/admin`. Use esse endereço para testar produtos, categorias, visibilidade e disponibilidade com o D1 local. Em **Fotos**, envie, ordene, substitua ou remova até oito fotos por peça. O upload aceita JPEG, PNG e WebP de até 50 MB e exige texto alternativo. A primeira foto é a capa. O Wrangler guarda os arquivos no R2 local.
 
-Na homologação, a configuração do Worker deve usar `worker/index.ts` e um D1 próprio. A aplicação do Cloudflare Access deve proteger `/admin` e `/api/admin`, incluindo os caminhos abaixo deles, com os dois e-mails autorizados. Configure `ACCESS_TEAM_DOMAIN` com o hostname da equipe, `ACCESS_AUD` com o público da aplicação do Access e `ADMIN_EMAILS` com os dois endereços separados por vírgula. O Worker usa esses valores no servidor para validar cada solicitação administrativa. Upload no R2, validação dos logins reais e publicação continuam pendentes. [Cloudflare Access para Workers](https://developers.cloudflare.com/workers/configuration/cloudflare-access/)
+O Worker de desenvolvimento aceita acesso administrativo apenas nessa prévia em loopback, sem login real. `npm run dev` e `npm run build` continuam servindo o fluxo estático da V1.
+
+Na homologação, use `worker/index.ts`, um D1 próprio e o binding `PHOTOS` para um bucket R2 privado. Configure um Cron Trigger para executar a limpeza periódica de arquivos sem vínculo. A aplicação do Cloudflare Access deve proteger `/admin` e `/api/admin`, incluindo os caminhos abaixo deles, com os dois e-mails autorizados. Configure `ACCESS_TEAM_DOMAIN` com o hostname da equipe, `ACCESS_AUD` com o público da aplicação do Access e `ADMIN_EMAILS` com os dois endereços separados por vírgula. O Worker usa esses valores no servidor para validar cada solicitação administrativa. A validação dos logins reais e a publicação continuam pendentes. [Cloudflare Access para Workers](https://developers.cloudflare.com/workers/configuration/cloudflare-access/)
 
 ## Documentação
 
