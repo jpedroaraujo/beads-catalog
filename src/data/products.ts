@@ -9,12 +9,12 @@ export const products = [
     slug: 'flor-de-bolso',
     name: 'Flor de bolso',
     description:
-      'Uma pequena flor colorida para acompanhar as chaves ou dar um toque especial à mochila. Exemplo fictício em Hama Beads; acabamento e cores seriam combinados no atendimento.',
+      'Uma pequena flor colorida para acompanhar as chaves ou dar um toque especial à mochila.',
     categoryId: 'chaveiros',
     images: [
       {
         src: '/images/flower.svg',
-        alt: 'Ilustração demonstrativa de uma flor lilás em beads com miolo amarelo',
+        alt: 'Ilustração de uma flor lilás em beads com miolo amarelo',
       },
     ],
     pricing: { type: 'fixed', amountInCents: 1500 },
@@ -27,12 +27,12 @@ export const products = [
     slug: 'moranguinho',
     name: 'Moranguinho',
     description:
-      'Um morango em tons de vermelho e verde, pensado para trazer cor aos pequenos detalhes do dia. Exemplo fictício: tamanho, argola e combinação de cores precisam ser confirmados.',
+      'Um morango em tons de vermelho e verde, pensado para trazer cor aos pequenos detalhes do dia.',
     categoryId: 'chaveiros',
     images: [
       {
         src: '/images/strawberry.svg',
-        alt: 'Ilustração demonstrativa de um morango vermelho em beads',
+        alt: 'Ilustração de um morango vermelho em beads',
       },
     ],
     pricing: { type: 'fixed', amountInCents: 1800 },
@@ -45,12 +45,12 @@ export const products = [
     slug: 'borboleta-colorida',
     name: 'Borboleta colorida',
     description:
-      'Asas em cores suaves para decorar um cantinho especial. O valor inicial deste exemplo pode variar com tamanho e cores. A forma de fixação seria definida durante a conversa.',
+      'Uma borboleta com asas em cores suaves para decorar um cantinho especial.',
     categoryId: 'decoracao',
     images: [
       {
         src: '/images/butterfly.svg',
-        alt: 'Ilustração demonstrativa de uma borboleta em beads nas cores rosa e lilás',
+        alt: 'Ilustração de uma borboleta em beads nas cores rosa e lilás',
       },
     ],
     pricing: { type: 'starting_at', amountInCents: 2500 },
@@ -62,13 +62,12 @@ export const products = [
     id: 'coracao',
     slug: 'coracao-em-cores',
     name: 'Coração em cores',
-    description:
-      'Um coração com listras coloridas para transformar em um pequeno presente. Exemplo fictício de acessório; o formato final e as possibilidades de uso seriam combinados antes da encomenda.',
+    description: 'Um coração com listras coloridas para presentear.',
     categoryId: 'acessorios',
     images: [
       {
         src: '/images/heart.svg',
-        alt: 'Ilustração demonstrativa de um coração em beads com listras coloridas',
+        alt: 'Ilustração de um coração em beads com listras coloridas',
       },
     ],
     pricing: { type: 'starting_at', amountInCents: 2000 },
@@ -80,13 +79,12 @@ export const products = [
     id: 'fantasminha',
     slug: 'fantasminha-gentil',
     name: 'Fantasminha gentil',
-    description:
-      'Um personagem simpático para uma decoração divertida. Exemplo fictício com orçamento sob consulta, conforme tamanho e acabamento. Nenhum valor ou prazo final é prometido pelo catálogo.',
+    description: 'Um personagem simpático para uma decoração divertida.',
     categoryId: 'decoracao',
     images: [
       {
         src: '/images/ghost.svg',
-        alt: 'Ilustração demonstrativa de um fantasminha branco em beads com bochechas rosadas',
+        alt: 'Ilustração de um fantasminha branco em beads com bochechas rosadas',
       },
     ],
     pricing: { type: 'quote' },
@@ -97,13 +95,12 @@ export const products = [
     id: 'margarida',
     slug: 'margarida-solar',
     name: 'Margarida solar',
-    description:
-      'Uma margarida de pétalas claras e miolo dourado. Exemplo fictício de decoração, temporariamente indisponível para demonstrar esse estado do catálogo.',
+    description: 'Uma margarida de pétalas claras e miolo dourado.',
     categoryId: 'decoracao',
     images: [
       {
         src: '/images/daisy.svg',
-        alt: 'Ilustração demonstrativa de uma margarida branca em beads com miolo amarelo',
+        alt: 'Ilustração de uma margarida branca em beads com miolo amarelo',
       },
     ],
     pricing: { type: 'fixed', amountInCents: 2200 },

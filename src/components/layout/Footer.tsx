@@ -7,7 +7,7 @@ export function Footer() {
       <div className="page-container flex flex-col justify-between gap-4 text-xs text-muted sm:flex-row sm:items-center">
         <div>
           <p className="font-display text-lg font-semibold text-ink">
-            {store.name}
+            Loja de {store.name}
           </p>
           <p className="mt-1">{store.description}</p>
         </div>

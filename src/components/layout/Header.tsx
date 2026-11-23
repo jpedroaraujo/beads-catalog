@@ -31,9 +31,6 @@ export function Header() {
           <a className="nav-link" href="#personalizadas">
             Do seu jeito
           </a>
-          <a className="nav-link" href="#como-funciona">
-            Como encomendar
-          </a>
         </nav>
         <div className="hidden lg:block">
           <WhatsAppButton

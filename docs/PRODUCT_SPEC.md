@@ -14,7 +14,7 @@ Uma artesã precisa apresentar criações de Hama Beads por um link simples, sem
 
 ## Jornadas
 
-1. Abrir o link → ler apresentação → explorar todas as artes ou filtrar categoria.
+1. Abrir o link → explorar todas as artes ou filtrar categoria.
 2. Selecionar uma peça → consultar imagem, descrição, dimensões, preço, personalização e disponibilidade → encomendar no WhatsApp se configurado e disponível.
 3. Acessar seção personalizada → entender que referência, tamanho e cores serão combinados → iniciar conversa sem produto selecionado.
 4. Sem contato configurado → receber explicação e botão desabilitado, sem navegação.
@@ -22,7 +22,7 @@ Uma artesã precisa apresentar criações de Hama Beads por um link simples, sem
 
 ## Escopo
 
-Incluído: header configurável, apresentação, filtros, cards, dialog de detalhes com galeria, fallback de imagens, estado vazio, disponibilidade, contato e personalização, dados locais, testes e SEO básico.
+Incluído: header configurável, filtros, cards, dialog de detalhes com galeria, fallback de imagens, estado vazio, disponibilidade, contato e personalização, dados locais, testes e SEO básico.
 
 Excluído da V1: painel, autenticação, CRUD por interface, uploads, banco, gerenciamento remoto da disponibilidade. Excluído do produto nesta etapa: carrinho, checkout, pagamentos, clientes autenticados, estoque, backend próprio e gerenciamento de conversas/pedidos.
 
@@ -35,7 +35,7 @@ Excluído da V1: painel, autenticação, CRUD por interface, uploads, banco, ger
 - Filtro não altera dados e inclui uma opção para todos os produtos. Categorias vazias são permitidas.
 - Telefone vazio ou estruturalmente inválido impede abertura do WhatsApp. A existência da conta deve ser conferida pela responsável.
 - Personalização e prazo são acordados no atendimento, sem prometer valores, prazos ou condições inventados.
-- Todos os produtos iniciais e suas ilustrações/preços são fictícios. Nome da loja e identidade são provisórios e a UI informa isso.
+- A loja pertence a Cecília Roldan. Os produtos, preços e ilustrações iniciais são exemplos para a prévia local e devem ser substituídos antes da publicação.
 - Dimensões opcionais estruturadas em cm. Sem dimensões cadastradas, detalhes orientam consulta no atendimento.
 
 ## Acessibilidade e responsividade
