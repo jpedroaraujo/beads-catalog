@@ -30,7 +30,7 @@ Plan: documentação e decisões registradas antes dos componentes. Implement �
 
 **Status: concluída nesta execução.** Dependências: Fase 1.
 
-- Header, apresentação provisória e ilustrações locais identificadas.
+- Header com acesso direto às criações e ilustrações locais identificadas.
 - Cards, grid mobile-first, filtros e contagem de resultados.
 - Estado vazio recuperável e fallback de imagem ausente/quebrada.
 
@@ -87,9 +87,9 @@ O diretório inicial estava vazio; todos os arquivos são novos. Entrega:
 - Aplicação: `src/main.tsx`, `src/app/App.tsx`, componentes de layout/catálogo/produto/UI, `src/styles/index.css`.
 - Domínio: `src/types/{product,category}.ts`, `src/data/{products,categories}.ts`, `src/config/store.ts`, `src/lib/{pricing,whatsapp,catalog}.ts`.
 - Qualidade: `src/tests/setup.ts`, testes de preços (execução e contratos de tipo), WhatsApp, cadastro e componentes.
-- Assets: `public/images/{beads-mark,hero-beads,flower,strawberry,butterfly,heart,ghost,daisy}.svg`, todos locais e ilustrativos.
+- Assets: `public/images/{beads-mark,flower,strawberry,butterfly,heart,ghost,daisy}.svg`, todos locais e ilustrativos.
 
-**Pendente de configuração comercial:** nome/identidade, logo e metadados definitivos, produtos e preços reais, fotografias autorizadas e otimizadas, telefone comercial e substituição de todos os demonstrativos antes de desativar `demonstrationMode`. Não é necessário telefone para iniciar o projeto localmente.
+**Pendente de configuração comercial:** identidade visual e logo definitivos, produtos e preços reais, fotografias autorizadas e otimizadas e telefone comercial. O nome Cecília Roldan já consta na interface e nos metadados. Os avisos de demonstração estão desativados na prévia local. Os exemplos devem ser substituídos antes da publicação.
 
 **Pendente de operação:** criar/conectar repositório por decisão da responsável, revisar preview e publicar no Cloudflare Pages. Nenhum commit, repositório remoto ou deploy foi criado.
 

@@ -6,11 +6,10 @@ interface StoreConfig {
   readonly demonstrationMode: boolean;
 }
 
-// Identidade provisória. Configure somente informações comerciais aprovadas.
 export const store = {
-  name: 'Ateliê de beads',
+  name: 'Cecília Roldan',
   logoSrc: '/images/beads-mark.svg',
   description: 'Pequenas criações, feitas com tempo, cor e carinho.',
   whatsappNumber: '',
-  demonstrationMode: true,
+  demonstrationMode: false,
 } as const satisfies StoreConfig;

@@ -5,14 +5,14 @@
 **Status:** bootstrap técnico e catálogo demonstrativo funcional concluídos. Liberação comercial e deploy pendentes de conteúdo/configuração aprovados.
 
 - Fundação documentada e tipada, dados locais e configuração central.
-- Identidade provisória e conteúdo demonstrativo explicitamente marcado.
+- Nome da loja definido como Cecília Roldan, com identidade visual provisória e conteúdo de exemplo na prévia local.
 - Catálogo responsivo com filtros, cards, detalhes, galeria simples e vazio.
 - Três modalidades de preço, validação e formatação central.
 - WhatsApp por links, indisponível sem configuração; pedidos personalizados.
 - Tratamento de disponibilidade e imagens ausentes.
 - Testes prioritários, lint, typecheck e build para Cloudflare Pages.
 
-Antes da liberação comercial: aprovar nome e identidade, substituir exemplos/preços/ilustrações por dados reais, cadastrar telefone comercial, conferir em dispositivos reais e publicar pelo responsável. Infraestrutura preparada não significa catálogo comercial pronto.
+Antes da liberação comercial: aprovar a identidade visual, substituir exemplos/preços/ilustrações por dados reais, cadastrar telefone comercial, conferir em dispositivos reais e publicar pelo responsável.
 
 ## V1.x — Melhorias incrementais (não implementadas)
 

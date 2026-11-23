@@ -1,6 +1,6 @@
 # Catálogo digital de Hama Beads
 
-SPA estática para apresentar artes artesanais, consultar preços e iniciar encomendas pelo WhatsApp. Não possui carrinho, checkout ou backend. Nome, identidade e conteúdo visual são provisórios; os produtos e preços incluídos são exemplos fictícios, identificados na interface.
+SPA estática da loja de Cecília Roldan para apresentar artes artesanais, consultar preços e iniciar encomendas pelo WhatsApp. Não possui carrinho, checkout ou backend. As peças, os preços e as ilustrações cadastrados são exemplos para a prévia local.
 
 ## Stack e requisitos
 
@@ -61,7 +61,7 @@ Edite `src/data/categories.ts` e `src/data/products.ts`. Use id e slug únicos e
 }
 ```
 
-Dimensões são opcionais e estruturadas em centímetros (largura, altura e profundidade opcional). `available: false` mantém a peça visível e impede encomenda. `customizable` informa se há adaptações possíveis; não altera preço automaticamente. Antes de publicar, substitua **todos** os exemplos por artes, preços e imagens aprovados; só então ajuste `store.demonstrationMode` para `false`. Trocar apenas o aviso não transforma exemplos em produtos reais.
+Dimensões são opcionais e estruturadas em centímetros (largura, altura e profundidade opcional). `available: false` mantém a peça visível e impede encomenda. `customizable` informa se há adaptações possíveis; não altera preço automaticamente. Antes de publicar, substitua **todos** os exemplos por artes, preços e imagens aprovados.
 
 ## Preços
 
@@ -77,7 +77,7 @@ Valores são centavos inteiros seguros, inclusive zero, nunca negativos/fracion�
 
 ## Configuração da loja e WhatsApp
 
-Edite `src/config/store.ts`: nome provisório, descrição, caminho do logo (`logoSrc`), telefone e modo demonstrativo. O telefone começa vazio. Configure apenas o número comercial autorizado, em formato internacional (código do país + DDD + número), somente dígitos, sem `+`, parênteses ou espaços. A validação estrutural não verifica a existência de uma conta WhatsApp.
+`src/config/store.ts` reúne nome da loja, descrição, caminho do logo (`logoSrc`), telefone e visibilidade dos avisos de demonstração (`demonstrationMode`, desativado na prévia atual). O telefone começa vazio. Configure apenas o número comercial autorizado, em formato internacional (código do país + DDD + número), somente dígitos, sem `+`, parênteses ou espaços. A validação estrutural não verifica a existência de uma conta WhatsApp.
 
 Sem número válido, os botões ficam desabilitados e apresentam aviso de contato indisponível. As funções de `src/lib/whatsapp.ts` retornam `null`; não criam links inválidos. Com número válido e produto disponível, abrem `https://wa.me/…?text=…` com a arte identificada. O cliente decide se envia a mensagem. Há mensagem separada para arte personalizada. Nada é enviado ou armazenado pela aplicação. A configuração é pública; não adicione segredos.
 
@@ -86,7 +86,7 @@ Sem número válido, os botões ficam desabilitados e apresentam aviso de contat
 1. Suba o código em um repositório de sua escolha (nenhum commit/deploy é feito pelo bootstrap).
 2. No Pages, conecte o repositório, selecione o diretório raiz e configure build `npm run build`, saída `dist` e `NODE_VERSION=24`.
 3. Instale pelo lockfile (`npm ci`); confira o preview antes de liberar o domínio.
-4. Substitua exemplos, configure telefone/nome, revise metadados de `index.html` e teste o contato em celular.
+4. Substitua exemplos, configure o telefone, revise metadados de `index.html` e teste o contato em celular.
 
 Não há variáveis secretas, funções de servidor ou banco. A navegação atual usa âncoras e estado local, sem rotas de produto. O Pages atende uma SPA estática; não há SSR. Nunca publique exemplos como catálogo comercial definitivo.
 
