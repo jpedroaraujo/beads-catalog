@@ -3,3 +3,5 @@ dist
 coverage
 package-lock.json
 public/images/*.svg
+dist-v2
+.wrangler

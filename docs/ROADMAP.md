@@ -22,15 +22,18 @@ Antes da liberação comercial: aprovar a identidade visual, substituir exemplos
 - Revisão com leitores de tela e auditoria de desempenho em produção.
 - Ajustes de identidade definitiva e conteúdo a partir do uso real.
 
-## V2 — Painel administrativo e persistência (somente planejamento)
+## V2 — Painel administrativo e persistência
 
-- Autenticação de administradores.
+**Status** — Fundação, leitura pública e painel administrativo implementados localmente. Configuração e teste dos dois logins reais no Access, R2 e publicação pendentes.
+
+- Acesso administrativo para duas contas individuais, com as mesmas permissões e sem cadastro público.
 - CRUD de produtos e categorias, upload de imagens.
 - Persistência em banco e armazenamento de imagens.
 - Gerenciamento de disponibilidade por interface.
-- Avaliação de Supabase ou equivalente, validação de dados, políticas de acesso e estados de rede.
+- Ocultar e reexibir produtos sem excluir o cadastro ou as fotos. Produtos ocultos ficam acessíveis pelo painel e são omitidos das consultas públicas. Produtos visíveis e indisponíveis continuam na vitrine com a encomenda bloqueada.
+- Cloudflare Workers para hospedagem e API, Access para autenticação, D1 para os cadastros e R2 para as fotos. Incluir validação de dados, controle de acesso e estados de rede.
 
-V2 depende de requisito aprovado e projeto específico. Não instalar SDKs, criar endpoints, tabelas, autenticação ou painel na V1. A evolução preservará contratos de domínio sem antecipar um repositório complexo.
+O [plano de implementação da V2](IMPLEMENTATION_PLAN.md#v2--plano-de-implementação) começa pela fundação local e pela leitura pública do catálogo. A execução da V2 é separada da V1.
 
 ## Fora do escopo
 

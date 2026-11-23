@@ -88,7 +88,21 @@ Sem número válido, os botões ficam desabilitados e apresentam aviso de contat
 3. Instale pelo lockfile (`npm ci`); confira o preview antes de liberar o domínio.
 4. Substitua exemplos, configure o telefone, revise metadados de `index.html` e teste o contato em celular.
 
-Não há variáveis secretas, funções de servidor ou banco. A navegação atual usa âncoras e estado local, sem rotas de produto. O Pages atende uma SPA estática; não há SSR. Nunca publique exemplos como catálogo comercial definitivo.
+Na V1, o Pages atende uma SPA estática com âncoras e estado local. Nunca publique exemplos como catálogo comercial definitivo.
+
+## Executar a V2 localmente
+
+```sh
+npm ci
+npm run db:v2:setup
+npm run dev:v2
+```
+
+Abra `http://127.0.0.1:8787`. A vitrine lê categorias e peças visíveis de `GET /api/catalog`. A migração e os exemplos ficam em `worker/d1`. Rodar o setup novamente preserva os cadastros existentes. O Wrangler usa apenas o banco local, e `npm run dev:v2` gera o build separado em `dist-v2` antes de servir a SPA. Rode esse comando novamente após alterar a interface.
+
+O painel local fica em `http://127.0.0.1:8787/admin`. Use esse endereço para testar produtos, categorias, visibilidade e disponibilidade com o D1 local. O Worker de desenvolvimento aceita acesso administrativo apenas nessa prévia em loopback, sem login real. `npm run dev` e `npm run build` continuam servindo o fluxo estático da V1.
+
+Na homologação, a configuração do Worker deve usar `worker/index.ts` e um D1 próprio. A aplicação do Cloudflare Access deve proteger `/admin` e `/api/admin`, incluindo os caminhos abaixo deles, com os dois e-mails autorizados. Configure `ACCESS_TEAM_DOMAIN` com o hostname da equipe, `ACCESS_AUD` com o público da aplicação do Access e `ADMIN_EMAILS` com os dois endereços separados por vírgula. O Worker usa esses valores no servidor para validar cada solicitação administrativa. Upload no R2, validação dos logins reais e publicação continuam pendentes. [Cloudflare Access para Workers](https://developers.cloudflare.com/workers/configuration/cloudflare-access/)
 
 ## Documentação
 

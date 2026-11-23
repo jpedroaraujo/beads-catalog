@@ -6,12 +6,18 @@ afterEach(cleanup);
 
 // jsdom não implementa a top layer/modalidade do navegador.
 // Estes métodos só permitem testar o ciclo de vida e os eventos do componente.
-if (!HTMLDialogElement.prototype.showModal) {
+if (
+  typeof HTMLDialogElement !== 'undefined' &&
+  !HTMLDialogElement.prototype.showModal
+) {
   HTMLDialogElement.prototype.showModal = function () {
     this.setAttribute('open', '');
   };
 }
-if (!HTMLDialogElement.prototype.close) {
+if (
+  typeof HTMLDialogElement !== 'undefined' &&
+  !HTMLDialogElement.prototype.close
+) {
   HTMLDialogElement.prototype.close = function () {
     this.removeAttribute('open');
   };

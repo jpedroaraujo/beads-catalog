@@ -95,4 +95,17 @@ O diretório inicial estava vazio; todos os arquivos são novos. Entrega:
 
 **Limites de validação:** conferência em Chromium headless e testes de DOM; não foi realizada validação com leitor de tela, Safari/Firefox ou aparelhos físicos. Auditoria automatizada não certifica acessibilidade completa. Não há link permanente de detalhes por produto nem fotos reais para medir otimização final.
 
-**Próxima iteração:** inserir conteúdo comercial aprovado, testar o telefone em dispositivo real, revisar a experiência com tecnologias assistivas e então seguir o deploy documentado. V1.x e V2 seguem exclusivamente no roadmap.
+**Próxima iteração da V1:** inserir conteúdo comercial aprovado, testar o telefone em dispositivo real e revisar a experiência com tecnologias assistivas antes do deploy.
+
+## V2 — Plano de implementação
+
+**Status** — Etapas 1 e 2 concluídas localmente. A integração com R2, a configuração e validação dos dois logins reais no Access e a publicação permanecem pendentes. A stack escolhida é Cloudflare Workers, Access, D1 e R2.
+
+1. **Fundação local e leitura pública.** Servir o build da SPA pelo Worker local, versionar as migrações do D1 e carregar produtos e categorias de teste. Preservar as regras de preço e os vínculos de categoria. Modelar visibilidade separadamente de `available`. A API pública devolve somente produtos visíveis. A interface distingue carregamento, vazio e erro com nova tentativa. **Aceite:** um produto oculto fica fora da resposta pública. Um produto visível e indisponível aparece com a encomenda bloqueada. O catálogo funciona localmente sem consumir recursos de produção.
+2. **Painel e persistência.** Proteger o painel e a API administrativa com Access para os dois e-mails autorizados. Implementar CRUD e os controles de visibilidade e disponibilidade. Bloquear exclusão de categoria com produtos vinculados. **Aceite:** chamadas diretas de visitantes e de pessoas fora da lista são recusadas. Cada administrador pode ocultar e reexibir uma peça preservando cadastro e disponibilidade. As mudanças aparecem na próxima leitura pública sem redeploy.
+3. **Fotos no R2.** Implementar envio, ordenação, substituição e remoção com texto alternativo e limites de arquivo. **Aceite:** uma falha na troca preserva a foto anterior. Ocultar a peça preserva suas fotos. Uma imagem ausente tem fallback acessível.
+4. **Homologação e publicação.** Testar os dois logins, as rotas administrativas, os limites de uso e a recuperação de dados. Importar apenas cadastros e fotos aprovados e conferir o telefone comercial em aparelho real. **Aceite:** o catálogo em homologação funciona sem usar dados de produção e o conteúdo aprovado passa pela revisão antes da publicação.
+
+**Validação da etapa 1:** migração e exemplos aplicados no D1 local. A API retornou apenas as duas peças visíveis, incluindo a indisponível, e respondeu com 404 para rota inexistente e 405 para método de escrita. Chromium a 375 px confirmou aviso demonstrativo, detalhes, encomenda bloqueada e filtro vazio. Os testes de interface também cobrem carregamento, falha, nova tentativa e catálogo vazio.
+
+**Validação da etapa 2** — A API foi exercitada contra um D1 local isolado para testar CRUD, ocultação e reexibição, conflito de revisão, integridade das categorias e rejeição de solicitações sem autorização ou de outra origem. Chromium a 375 px confirmou a ocultação e a reexibição pelo painel, com efeito na próxima leitura pública. Testes automatizados usam tokens assinados localmente para verificar o Access e cobrem a preservação do formulário após falha de gravação. O login com os dois e-mails reais será verificado na homologação.
