@@ -9,3 +9,6 @@ coverage/
 *.tsbuildinfo
 dist-v2/
 .wrangler/
+/wrangler.staging.jsonc
+.dev.vars
+.dev.vars.*

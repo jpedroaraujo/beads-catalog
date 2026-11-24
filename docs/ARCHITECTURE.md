@@ -51,6 +51,8 @@ O entrypoint principal verifica o token do Access para `/admin` e `/api/admin`, 
 
 O bucket R2 permanece privado. Cada upload grava um objeto novo, e a galeria troca o vínculo no D1 após a gravação. D1 atualiza os vínculos e a revisão da peça no mesmo lote. Arquivos substituídos, removidos ou abandonados ficam registrados na fila `image_cleanup`. Alterações na galeria e o handler agendado processam a fila com tentativas repetíveis. Em homologação, configurar o Cron Trigger e verificar a limpeza periódica. [API do R2](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/)
 
+O [modelo de homologação](../wrangler.staging.example.jsonc) aponta para a entrada com validação do Access, separa os bindings D1 e R2 e agenda a limpeza a cada 15 minutos. `npm run check:v2:staging` empacota a configuração sem publicar. `npm run smoke:v2` verifica a leitura pública e a proteção das rotas administrativas sem credenciais.
+
 ## Deploy
 
 `npm ci` + `npm run build` → `dist/`. Cloudflare Pages executa e serve os assets estáticos. Node 24 escolhido para padronizar ambiente com as versões estáveis instaladas. Sem redirects de rotas internos nesta versão, pois os detalhes são estado local. Metadados gerais em index.html, sem URL canônica/domínio inventados.

@@ -42,7 +42,7 @@ export function RemoteApp() {
   }
 
   if (catalogState.state === 'error') {
-    return <CatalogPage state="error" demonstration onRetry={retry} />;
+    return <CatalogPage state="error" onRetry={retry} />;
   }
-  return <CatalogPage {...catalogState} demonstration />;
+  return <CatalogPage {...catalogState} />;
 }

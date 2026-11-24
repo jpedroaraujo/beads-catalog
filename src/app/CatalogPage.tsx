@@ -79,11 +79,6 @@ export function CatalogPage(props: CatalogPageProps) {
                 </p>
               )}
             </div>
-            {props.demonstration && (
-              <p className="mb-6 rounded-lg border border-line bg-paper p-3 text-sm text-muted">
-                Catálogo demonstrativo. Peças, preços e imagens são exemplos.
-              </p>
-            )}
             {props.state === 'loading' && (
               <p role="status" className="text-sm text-muted">
                 Carregando as criações…

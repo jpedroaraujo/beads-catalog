@@ -21,7 +21,9 @@
     "build:v2": "npm run typecheck && vite build --mode v2 --outDir dist-v2",
     "dev:v2": "npm run build:v2 && wrangler dev --config wrangler.local.jsonc --local --ip 127.0.0.1",
     "db:v2:setup": "npm run db:v2:migrate && wrangler d1 execute DB --config wrangler.local.jsonc --local --file=worker/d1/seed.local.sql",
-    "db:v2:migrate": "wrangler d1 migrations apply DB --config wrangler.local.jsonc --local"
+    "db:v2:migrate": "wrangler d1 migrations apply DB --config wrangler.local.jsonc --local",
+    "check:v2:staging": "npm run build:v2 && wrangler deploy --config wrangler.staging.example.jsonc --dry-run",
+    "smoke:v2": "node scripts/smoke-v2.mjs"
   },
   "dependencies": {
     "jose": "^6.2.18",
